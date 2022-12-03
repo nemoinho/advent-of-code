@@ -65,6 +65,35 @@
         'C Z': 7, // Scissors, goal Win (6) => Rock (1)
       }
     ),
+    new Day(
+      3,
+      'vJrwpWtwJgWrhcsFMMfFFhFp\n' +
+      'jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\n' +
+      'PmmdzqPrVvPwwTWBwg\n' +
+      'wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\n' +
+      'ttgJtRGJQctTZtZT\n' +
+      'CrZsJsPPZsGzwwsLwLmpwMDw\n',
+      157,
+      70,
+      (rucksacks, prioritize) =>
+        prioritize(rucksacks.split('\n').filter(rucksack => rucksack.length > 0))
+          .map(item => item.charCodeAt(0) - 96)
+          .map(item => item <= 0 ? item + 58 : item)
+          .reduce(sum),
+      (rucksacks) =>
+        rucksacks
+          .map(rucksack => [
+            rucksack.substr(0, rucksack.length / 2).split(''),
+            rucksack.substr(rucksack.length / 2).split('')
+          ])
+          .map(([compartment1, compartment2]) => compartment1.find(item => compartment2.includes(item))),
+      (rucksacks) => {
+        return Array.from({length: rucksacks.length / 3})
+          .map((_, i) => i * 3)
+          .map(i => rucksacks[i].split('')
+            .find(item => rucksacks[i+1].includes(item) && rucksacks[i+2].includes(item)))
+      }
+    ),
   ];
 
   const answer = (answer) => {
