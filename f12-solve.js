@@ -94,6 +94,27 @@
             .find(item => rucksacks[i+1].includes(item) && rucksacks[i+2].includes(item)))
       }
     ),
+    new Day(
+      4,
+      '2-4,6-8\n' +
+      '2-3,4-5\n' +
+      '5-7,7-9\n' +
+      '2-8,3-7\n' +
+      '6-6,4-6\n' +
+      '2-6,4-8',
+      2,
+      4,
+      (assignmentPairs, testForOverlapping) =>
+        assignmentPairs.split('\n')
+          .filter(pair => pair.length > 0)
+          .map(pair => pair.split(','))
+          .map(([first, second]) => [...first.split('-'), ...second.split('-')].map(n => n - 0))
+          .filter(testForOverlapping)
+          .map(() => 1)
+          .reduce(sum),
+      ([f1, f2, s1, s2]) => (f1 <= s1 && f2 >= s2) || (f1 >= s1 && f2 <= s2),
+      ([f1, f2, s1, s2]) => (f1 >= s1 || f2 >= s1) && (s1 >= f1 || s2 >= f1)
+    ),
   ];
 
   const answer = (answer) => {
