@@ -115,6 +115,45 @@
       ([f1, f2, s1, s2]) => (f1 <= s1 && f2 >= s2) || (f1 >= s1 && f2 <= s2),
       ([f1, f2, s1, s2]) => (f1 >= s1 || f2 >= s1) && (s1 >= f1 || s2 >= f1)
     ),
+    new Day(
+      5,
+      '    [D]    \n' +
+      '[N] [C]    \n' +
+      '[Z] [M] [P]\n' +
+      ' 1   2   3 \n' +
+      '\n' +
+      'move 1 from 2 to 1\n' +
+      'move 3 from 1 to 3\n' +
+      'move 2 from 2 to 1\n' +
+      'move 1 from 1 to 2',
+      'CMZ',
+      'MCD',
+      (plan, rearrange) => {
+        const [crates, movements] = plan.split('\n\n');
+        const crateLines = crates
+          .split('\n')
+          .slice(0, -1)
+          .map(line => line.split('').filter((_, i) => ((i - 1) % 4) === 0))
+          .reverse();
+        const stacks = Array.from({length: crateLines[0].length})
+          .map((_, i) => crateLines.map(l => l[i]).filter(crate => crate !== ' '));
+        movements.split('\n')
+          .filter(l => l.length > 0)
+          .map(l => Array.from(l.match(/\d+/g)))
+          .forEach(rearrange(stacks))
+        return stacks.map(stack => stack.pop()).join('');
+      },
+      (stacks) =>
+        ([i, from, to]) => {
+          for (; i--; ) {
+            stacks[to - 1].push(stacks[from - 1].pop());
+          }
+        },
+      (stacks) =>
+        ([i, from, to]) => {
+          stacks[to - 1] = stacks[to - 1].concat(stacks[from - 1].splice(0 - i))
+        },
+    ),
   ];
 
   const answer = (answer) => {
