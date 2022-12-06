@@ -154,6 +154,17 @@
           stacks[to - 1] = stacks[to - 1].concat(stacks[from - 1].splice(0 - i))
         },
     ),
+    new Day(
+      6,
+      'mjqjpqmgbljsphdztnvjfqwrcgsmlb',
+      7,
+      19,
+      (input, sequenceLength) =>
+        input.split('').findIndex((_, i) =>
+          [...new Set(input.slice(i - sequenceLength, i))].length === sequenceLength),
+      4,
+      14
+    ),
   ];
 
   const answer = (answer) => {
