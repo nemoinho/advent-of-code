@@ -1,0 +1,22 @@
+{
+  "name": "advent-of-code",
+  "version": "1.0.0",
+  "description": "This is my approach to adventofcode.com",
+  "main": "build/index.js",
+  "scripts": {
+    "prestart": "tsc && cp -a src/inputs build/.",
+    "start": "node build/index",
+    "pretest": "tsc",
+    "test": "find build/ -name '*.spec.js' -exec node {} \\;",
+    "dev": "nodemon"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.11.12",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "tsc": "^2.0.4",
+    "typescript": "^4.9.4"
+  }
+}
